@@ -45,21 +45,24 @@ router.get('/getword', function(req, res, next) {
 
   var nodemailer = require('nodemailer');
 
-  var transporter = nodemailer.createTransport({
+  /*var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth:
       {
         user: 'creative4node.html.messenger@gmail.com',
         pass: 'iliketrains'
       }
-  });
+  });*/
+
+  var transporter = nodemailer.createTransport('smtps://creative4node.html.messenger@gmail.com:iliketrains@smtp.gmail.com');
+
 
   var mailOptions =
   {
       from: 'creative4node.html.messenger@gmail.com',
-      to: 'alexcn711@gmail.com', // change this eh
-      subject: 'Sending Email using Node.js', // change this eh
-      html: '<h1>Welcome</h1><p>That was not easy!</p>' // change this eh
+      to: req.query.w,
+      subject: req.query.s,
+      html: req.query.m
   };
 
   console.log('about to send email');
@@ -87,7 +90,7 @@ router.get('/getword', function(req, res, next) {
 
   var result = [];
 
-  https.get('https://owlbot.info/api/v1/dictionary/' + req.query.w, function(response) {
+  https.get('https://owlbot.info/api/v1/dictionary/' + 'yes', function(response) {
     response.on('data', function(d) {
       result += d;
     });

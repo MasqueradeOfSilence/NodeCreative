@@ -9,24 +9,24 @@
   </script>
 
   <script>
-  $(document).ready(function() { 	 
-    $( "#wordfield" ).keyup(function() {
-      var url = "getword?w="+$("#wordfield").val();
-      $.getJSON(url,function(data) {
-        var everything;
-        everything = "<ul>";
-        $.each(data, function(i,item) {
-          everything += "<li> " + data[i].defenition + "</li>";
-        });
-
-        everything += "</ul>";
-        $("#definition").html(everything);
-        /*console.log(data);
-        console.log(data[0]);
-        console.log("Got "+data[0].city);*/
-      });
-      $("#txtHint").text("Keyup "+$("#cityField").val());
-    });
+  $(document).ready(function() {
+    // $( "#wordfield" ).keyup(function() {
+    //   var url = "getword?w="+$("#wordfield").val();
+    //   $.getJSON(url,function(data) {
+    //     var everything;
+    //     everything = "<ul>";
+    //     $.each(data, function(i,item) {
+    //       everything += "<li> " + data[i].defenition + "</li>";
+    //     });
+    //
+    //     everything += "</ul>";
+    //     $("#definition").html(everything);
+    //     /*console.log(data);
+    //     console.log(data[0]);
+    //     console.log("Got "+data[0].city);*/
+    //   });
+    //   $("#txtHint").text("Keyup "+$("#cityField").val());
+    // });
 
     $("#weatherButton").click(function(e){
       var value = $("#cityField").val();
@@ -93,20 +93,32 @@
 
     $('#emailData').click(function(e)
     {
+
+      e.preventDefault();
+
+      var url = "getword?w="+$("#recipients").val() + "&s=" + $("#subject").val() + "&m=" + $("#the_big_kahuna").val();
+
+      $.getJSON(url,function(data) {
+      });
+
     	console.log("clicked send");
+
+
+
+      /*
       var nodemailer = require('nodemailer'); // Can't find variable "require" probably because I'm not running a server
       var transporter = nodemailer.createTransport('smtps://creative4node.html.messenger@gmail.com:iliketrains@smtp.gmail.com');
-      
-      var mailOptions = 
+
+      var mailOptions =
       {
       	from: 'creative4node.html.messenger@gmail.com',
       	to: 'alexcn711@gmail.com',
       	subject: 'Sending email using Node.js',
       	html: '<h1>Welcome!</h1><p>That was not easy!</p>'
       };
-      
+
       console.log('about to send email');
-      
+
       transporter.sendMail(mailOptions, function(error, info)
       {
       		if (error)
@@ -118,9 +130,9 @@
       		{
       			console.log('Email sent: ' + info.response);
       		}
-      });
-      
-      
+      }); */
+
+
     });
 
 
@@ -132,7 +144,7 @@
 
   <center><h1>HTML Email Client!</h1>
 
-  <form id="emailData">
+  <form id="emailData" method="POST">
     Recipient: <br>(For multiple recipients, separate email addresses using a comma.)
     <input type="text" name="emailRecipients" id="recipients" size="70" placeholder="example@gmail.com, yourMom@hotmail.com">
     <br><br>
