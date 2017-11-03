@@ -1,0 +1,118 @@
+<html>
+<head>
+  <title>City Finder</title>
+  <link rel="stylesheet" href="main.css">
+  <script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous">
+  </script>
+
+  <script>
+  $(document).ready(function() {
+    $( "#wordfield" ).keyup(function() {
+      var url = "getword?w="+$("#wordfield").val();
+      $.getJSON(url,function(data) {
+        var everything;
+        everything = "<ul>";
+        $.each(data, function(i,item) {
+          everything += "<li> " + data[i].defenition + "</li>";
+        });
+
+        everything += "</ul>";
+        $("#definition").html(everything);
+        /*console.log(data);
+        console.log(data[0]);
+        console.log("Got "+data[0].city);*/
+      });
+      $("#txtHint").text("Keyup "+$("#cityField").val());
+    });
+
+    $("#weatherButton").click(function(e){
+      var value = $("#cityField").val();
+      console.log(value);
+      e.preventDefault();
+      $("#displayCity").text(value);
+
+      var myurl= "https://api.wunderground.com/api/b46f60f2581447c1/geolookup/conditions/q/UT/";
+      myurl += value;
+      myurl += ".json";
+      console.log(myurl);
+      $.ajax({
+        url : myurl,
+        dataType : "json",
+        success : function(parsed_json) {
+          var location = parsed_json['location']['city'];
+          var temp_string = parsed_json['current_observation']['temperature_string'];
+          var current_weather = parsed_json['current_observation']['weather'];
+          everything = "<ul>";
+          everything += "<li>Location: "+location;
+          everything += "<li>Temperature: "+temp_string;
+          everything += "<li>Weather: "+current_weather;
+          everything += "</ul>";
+          $("#weather").html(everything);
+        }
+      });
+
+    });
+
+    $("#searchButton").click(function(e){
+      var value = $("#searchStack").val();
+      console.log(value);
+      e.preventDefault();
+      //$("#searchResults").text(value);
+
+      var myurl= "https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=";
+      myurl += value;
+      myurl += "&site=stackoverflow";
+      console.log(myurl);
+      $.ajax({
+        url : myurl,
+        dataType : "json",
+        success : function(parsed_json) {
+          var answers = "";
+          for (var i = 0; i < 20; i++) {
+            answers += "<a href=\"";
+            answers += parsed_json['items'][i]['link'];
+            answers += "\">"
+            answers += parsed_json['items'][i]['title'];
+            answers += "</a><br>";
+          }
+          //var temp_string = parsed_json['current_observation']['temperature_string'];
+          //var current_weather = parsed_json['current_observation']['weather'];
+          var results;
+          console.log(parsed_json['items']);
+
+          console.log(answers);
+          $("#searchResults").html(answers);
+        }
+      });
+
+    });
+
+
+
+  });
+  </script>
+
+</head>
+<body>
+  <form>
+    Enter A word: <input type="text" id="wordfield" value=""><br>
+    Definition: <span id="definition">Empty</span>
+    <input id="weatherButton" type="submit" value="Submit">
+  </form>
+  <p>City</p>
+  <textarea id="displayCity">No City</textarea>
+  <p>Current Weather</p>
+  <div id="defnition">No weather</div>
+
+  <form>
+    Enter A Stack Exchange search term: <input type="text" id="searchStack" value=""><br>
+    <input id="searchButton" type="submit" value="Submit">
+  </form>
+  <p>Stackoverflow results</p>
+  <div id="searchResults">No weather</div>
+
+</body>
+</html>
