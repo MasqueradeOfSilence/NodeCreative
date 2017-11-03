@@ -1,0 +1,53 @@
+body
+
+{
+    background-color: #121415;
+    color: #CCFEFF;
+}
+
+ul 
+{
+	list-style-type: none;
+   	margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: inline;
+    background-color: #121415;
+    text-align: center;
+}
+
+h1
+{
+	color: #CCFEFF;
+}
+
+ol li
+{
+	padding: 0 10px;	
+	margin: 0 10px;	
+}
+
+ul li 
+{
+    padding: 10px;
+	display: inline;
+}
+
+li a
+{
+	color: #D62C42;
+}
+
+p
+{
+	color: #CCFEFF;
+}
+
+#share-buttons img 
+{
+	width: 35px;
+	padding: 5px;
+	border: 0;
+	box-shadow: 0;
+	display: inline;
+}
