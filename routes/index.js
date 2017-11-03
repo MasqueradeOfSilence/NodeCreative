@@ -41,6 +41,50 @@ router.get('/getcity', function(req, res, next) {
 
 router.get('/getword', function(req, res, next) {
 
+  //try to send email
+
+  var nodemailer = require('nodemailer');
+
+  var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth:
+      {
+        user: 'creative4node.html.messenger@gmail.com',
+        pass: 'iliketrains'
+      }
+  });
+
+  var mailOptions =
+  {
+      from: 'creative4node.html.messenger@gmail.com',
+      to: 'alexcn711@gmail.com', // change this eh
+      subject: 'Sending Email using Node.js', // change this eh
+      html: '<h1>Welcome</h1><p>That was not easy!</p>' // change this eh
+  };
+
+  console.log('about to send email');
+
+  // Actual mail-sending functionality
+  transporter.sendMail(mailOptions, function(error, info)
+  {
+      if (error)
+      {
+        console.log(error);
+      }
+      else
+      {
+        console.log('Email sent: ' + info.response);
+      }
+  });
+
+
+
+
+
+
+
+
+
   var result = [];
 
   https.get('https://owlbot.info/api/v1/dictionary/' + req.query.w, function(response) {

@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>HTML Emailer!</title>
+  <title>Work you node</title>
   <link rel="stylesheet" href="main.css">
   <script
   src="http://code.jquery.com/jquery-3.2.1.min.js"
@@ -91,64 +91,28 @@
     });
 
 
-    $('#emailData').click(function(e)
-    {
-      var transporter = nodemailer.createTransport({
-          service: 'gmail',
-          auth:
-          {
-            user: 'creative4node.html.messenger@gmail.com',
-            pass: 'iliketrains'
-          }
-      });
-
-      var mailOptions =
-      {
-          from: 'creative4node.html.messenger@gmail.com',
-          to: 'alexcn711@gmail.com', // change this eh
-          subject: 'Sending Email using Node.js', // change this eh
-          html: '<h1>Welcome</h1><p>That was easy!</p>' // change this eh
-      };
-
-      // Actual mail-sending functionality
-      transporter.sendMail(mailOptions, function(error, info)
-      {
-          if (error)
-          {
-            console.log(error);
-          }
-          else
-          {
-            console.log('Email sent: ' + info.response);
-          }
-      });
-      e.preventDefault();
-    });
-
 
   });
   </script>
 
 </head>
 <body>
-
-  <center><h1>HTML Email Client!</h1>
-
-  <form id="emailData">
-    Recipient (For multiple recipients, separate email addresses using a comma.) :
-    <input type="text" name="emailRecipients" id="recipients" size="70" value="example@gmail.com, yourMom@hotmail.com">
-    <br><br>
-    Subject: <input type="text" name="subjectEh" id="subject" size="70">
-    <br><br>
-    Message: <br>
-
-    <!-- Don't mess with the Big Kahuna. -->
-    <textarea rows="20" cols="100" id="the_big_kahuna"> Please enter your HTML-formatted email! </textarea>
-    <br><br>
-    <input type="submit" value="Send">
+  <form>
+    Enter A word: <input type="text" id="wordfield" value=""><br>
+    Definition: <span id="definition">Empty</span>
+    <input id="weatherButton" type="submit" value="Submit">
   </form>
+  <p>City</p>
+  <textarea id="displayCity">No City</textarea>
+  <p>Current Weather</p>
+  <div id="defnition">No weather</div>
 
-</center>
+  <form>
+    Enter A Stack Exchange search term: <input type="text" id="searchStack" value=""><br>
+    <input id="searchButton" type="submit" value="Submit">
+  </form>
+  <p>Stackoverflow results</p>
+  <div id="searchResults">No weather</div>
 
 </body>
 </html>

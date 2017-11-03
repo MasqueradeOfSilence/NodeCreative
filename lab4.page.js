@@ -1,7 +1,7 @@
 var Lab4 = function() {
-  
+
   var self = this;
-  
+
   //Your submitted/base URL should be of the form: xxx.xxx:3004
   self.lab4URL = "/"; //This really shouldn't impact you, unless you try to submit something that doesn't meet the form above.
 
@@ -17,6 +17,8 @@ var Lab4 = function() {
   self.owlSearchInput = $("#searchWord"); //An input field to type a word to get a definition of
   self.owlSearchButton = $("#searchButton"); //The button that asks for the definition
   self.owlSearchResults = $("#searchResults"); //The ID of the area where the definition is placed. Make sure it displays at least the first definition
+
+  self.emailData = $("#emailData");
 
   //These are your route URLs (when appended to the base one)
   self.getcityRoute = "/getcity?q="; //You should be expecting a query parameter 'q' in your /getcity route
