@@ -8,14 +8,56 @@
 	<body>
 		<center><h1>HTML Email Client!</h1>
 		
-		<form>
-			Recipient: <input type="text" name="emailRecipients" size="70" value="example@gmail.com, yourMom@hotmail.com">
+		<form id="emailData">
+			Recipient (For multiple recipients, separate email addresses using a comma.) : 
+			<input type="text" name="emailRecipients" id="recipients" size="70" value="example@gmail.com, yourMom@hotmail.com">
+			<br><br>
+			Subject: <input type="text" name="subjectEh" id="subject" size="70">
 			<br><br>
 			Message: <br>
-			<textarea rows="20" cols="100"> Please enter your HTML-formatted email! </textarea>
+			
+			<!-- Don't mess with the Big Kahuna. -->
+			<textarea rows="20" cols="100" id="the_big_kahuna"> Please enter your HTML-formatted email! </textarea>
 			<br><br>
 			<input type="submit" value="Submit">
 		</form>
+		
+		<!-- Submit button's functionality-->
+		<script>
+			$('#emailData').on('submit', function(e)
+			{
+				var transporter = nodemailer.createTransport({
+  					service: 'gmail',
+  					auth: 
+  					{
+    					user: 'creative4node.html.messenger@gmail.com',
+    					pass: 'iliketrains'
+  					}
+				});
+				
+				var mailOptions = 
+				{
+  					from: 'creative4node.html.messenger@gmail.com',
+  					to: 'myfriend@yahoo.com', // change this eh
+  					subject: 'Sending Email using Node.js', // change this eh
+  					html: '<h1>Welcome</h1><p>That was easy!</p>' // change this eh
+				};
+
+				// Actual mail-sending functionality
+				transporter.sendMail(mailOptions, function(error, info)
+				{
+  					if (error) 
+  					{
+    					console.log(error);
+  					} 
+  					else 
+  					{
+    					console.log('Email sent: ' + info.response);
+  					}
+				});
+				e.preventDefault();
+			});
+		</script>
 		
 		</center>
 	
